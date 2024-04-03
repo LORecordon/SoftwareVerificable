@@ -11,7 +11,8 @@
 
             <h4 class="form-subtitle">ROL</h4>
             <div class="form-group">
-                <label for="comInput">Comuna</label>
+                
+                <!--<label for="comInput">Comuna</label>
                 <select class="form-select" id="comInput" name="comInput">
                     <option value="13101">Santiago</option>
                     <option value="13102">Cerrillos</option>
@@ -65,7 +66,11 @@
                     <option value="13603">Isla de Maipo</option>
                     <option value="13604">Padre Hurtado</option>
                     <option value="13605">Peñaflor</option>
-                </select>
+                </select>-->
+
+                <label for="comInput">Codigo Comuna</label>
+                <input type="number" class="form-control" id="comInput" name="comInput" 
+                value="{{form.comInput}}" placeholder="13101">
 
                 <label for="manInput">Manzana</label>
                 <input type="number" class="form-control" id="manInput" name="manInput"
@@ -75,9 +80,19 @@
                 <input type="number" class="form-control" id="preInput" name="preInput"
                 value="{{form.preInput}}" placeholder="Predio">
 
-                <label for="fInput">Fecha</label>
+                <!--<label for="fInput">Fecha</label>
                 <input type="date" class="form-control" id="fInput" name="fInput"
-                value="{{form.fInput}}" placeholder="Fecha">
+                value="{{form.fInput}}" placeholder="Fecha">-->
+
+                <label for="ffInput">Fecha</label>
+                <select class="form-select" id="ffInput" name="ffInput">
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                </select>
 
             </div>
             <div class="space"></div>

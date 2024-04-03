@@ -96,6 +96,9 @@ def get_all_registers():
 @app.route('/register/<id>')
 def get_register_by_id(id):
     register = registerManager.get_register_by_id(id)
+    register['Enajenantes'] = json.loads(register['Enajenantes'])
+    register['Adquirentes'] = json.loads(register['Adquirentes'])
+    print(register)
     return render_template(REGISTER_PAGE, data=register)
 
 @app.route('/find')
@@ -107,7 +110,7 @@ def find_register():
     comuna = request.form["comInput"]
     manzana = request.form["manInput"]
     predio = request.form["preInput"]
-    fecha = request.form["fInput"]
+    fecha = request.form["ffInput"]
 
     if not comuna:
         return render_template(FIND_PAGE, error="El campo 'comuna' no puede ser vacío", form = request.form), HTTP_BAD_REQUEST

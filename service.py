@@ -20,27 +20,27 @@ class RegisterManager:
             self.cursor.execute(string_sql)
             self.database.commit()
 
-            for i in enajenante:
-                rut = i['rut']
-                derecho = i['derecho']
-                if len(derecho) > 0:
-                    string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Porcentaje_Derechos, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{derecho}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
-                else:
-                    string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
-                print(string_sql)
-                self.cursor.execute(string_sql)
-                self.database.commit()
+            #for i in enajenante:
+            #    rut = i['rut']
+            #    derecho = i['derecho']
+            #    if len(derecho) > 0:
+            #        string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Porcentaje_Derechos, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{derecho}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
+            #    else:
+            #        string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
+            #    print(string_sql)
+            #    self.cursor.execute(string_sql)
+            #    self.database.commit()
 
-            for i in adquiriente:
-                rut = i['rut']
-                derecho = i['derecho']
-                if len(derecho) > 0:
-                    string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Porcentaje_Derechos, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{derecho}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
-                else:
-                    string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
-                print(string_sql)
-                self.cursor.execute(string_sql)
-                self.database.commit()
+            #for i in adquiriente:
+            #    rut = i['rut']
+            #    derecho = i['derecho']
+            #    if len(derecho) > 0:
+            #        string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Porcentaje_Derechos, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{derecho}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
+            #    else:
+            #        string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
+            #    print(string_sql)
+            #    self.cursor.execute(string_sql)
+            #    self.database.commit()
 
             return HTTP_OK
         except Exception as e:
@@ -65,7 +65,7 @@ class RegisterManager:
         multiprop = self.cursor.fetchall()
         multiprops = []
         for i in multiprop:
-            ano = int(fecha.split('-')[0])
+            ano = int(fecha)
             fi = i['Fecha_Inscripcion']
             #fi datetime.date object
             year = fi.year
@@ -111,13 +111,14 @@ class RegisterManager:
                 nmroInscripcion = register["nroInscripcion"]
                 
                 if type(cne) != int or type(comuna) != int or type(manzana) != int or type(predio) != int or type(enajenantes) != str or type(adquirentes) != str or type(fojas) != int or type(fecha) != str or type(nmroInscripcion) != int:
-
+                    print("error")
                     errors.append(register)
                     continue
                     
                 month = int(fecha.split('-')[1])
                 day = int(fecha.split('-')[2])
                 if month > 12 or month < 1 or day < 1 or day > 31:
+                    print("error")
                     errors.append(register)
                     continue
 
@@ -125,32 +126,40 @@ class RegisterManager:
                 self.cursor.execute(string_sql)
                 self.database.commit()
 
-                for i in enan:
-                    rut = i['RUNRUT']
-                    derecho = i['porcDerecho']
-                    if derecho > 0:
-                        string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Porcentaje_Derechos, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{derecho}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
-                    else:
-                        string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
-                    self.cursor.execute(string_sql)
-                    self.database.commit()
+                #try:
+                #    for i in enan:
+                #        rut = i['RUNRUT']
+                #        derecho = i['porcDerecho']
+                #        if derecho > 0:
+                #            string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Porcentaje_Derechos, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{derecho}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
+                #        else:
+                #            string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
+                #        self.cursor.execute(string_sql)
+                #        self.database.commit()
+                #except Exception as e:
+                #    pass
+                #
+                #try:
+                #    for i in adq:
+                #        rut = i['RUNRUT']
+                #        derecho = i['porcDerecho']
+                #        if derecho:
+                #            string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Porcentaje_Derechos, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{derecho}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
+                #        else:
+                #            string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
+                #        self.cursor.execute(string_sql)
+                #        self.database.commit()
+                #except Exception as e: 
+                #    pass
 
-                for i in adq:
-                    rut = i['RUNRUT']
-                    derecho = i['porcDerecho']
-                    if derecho:
-                        string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Porcentaje_Derechos, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{derecho}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
-                    else:
-                        string_sql = f"INSERT INTO Multipropietarios (Comuna, Manzana, Predio, RUN_RUT, Fojas, Numero_Inscripcion, Fecha_Inscripcion) VALUES ('{comuna}', '{manzana}', '{predio}', '{rut}', '{fojas}', '{nmroInscripcion}', '{fecha}')"
-                    self.cursor.execute(string_sql)
-                    self.database.commit()
 
             return errors
                 
 
         except Exception as e:
-            print("Ocurrio un error: " + e)
-            return HTTP_BAD_REQUEST
+            print("Ocurrio un error: ", e)
+            errors.append(e)
+            return errors
     
     def pprocess_json(self, file_object):
         try:
